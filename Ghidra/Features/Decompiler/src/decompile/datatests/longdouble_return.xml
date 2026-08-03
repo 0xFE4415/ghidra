@@ -1,0 +1,23 @@
+<decompilertest>
+  <!-- A function that returns a `long double` is passed back in the x87 register
+     %st0 as an 80-bit value.
+
+     The bytes are gcc -O2 output:
+     // https://godbolt.org/z/q5WvrTn43
+     -->
+  <binaryimage arch="x86:LE:64:default:gcc">
+    <bytechunk space="ram" offset="0x100000" readonly="true">
+      db6c2408db6c2418dec1c3
+</bytechunk>
+    <symbol space="ram" offset="0x100000" name="ldadd" />
+  </binaryimage>
+  <script>
+  <com>lo fu ldadd</com>
+  <com>decompile</com>
+  <com>print C</com>
+  <com>quit</com>
+</script>
+  <stringmatch name="long double return type" min="1" max="1">float10 ldadd</stringmatch>
+  <stringmatch name="not collapsed to void" min="0" max="0">void ldadd</stringmatch>
+  <stringmatch name="sum is returned" min="1" max="1">return .* \+</stringmatch>
+</decompilertest>
