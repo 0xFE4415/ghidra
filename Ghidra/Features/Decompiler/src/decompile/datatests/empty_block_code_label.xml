@@ -1,0 +1,23 @@
+<decompilertest>
+<!--
+<f>:
+        e3 04                   jrcxz  <E>
+        e3 05                   jrcxz  <E+0x3>
+        01 02                   add    DWORD PTR [rdx],eax
+
+<E>:
+        c8 90 da 90             enter  0xda90,0x90
+        90                      nop
+        90                      nop
+        90                      nop
+        90                      nop
+        eb f7                   jmp    <E+0x1>
+-->
+    <binaryimage arch="x86:LE:64:default:gcc">
+        <bytechunk space="ram" offset="0x100000" readonly="true">
+            e304e3050102c890da9090909090ebf7</bytechunk>
+        <symbol space="ram" offset="0x100000" name="f" />
+    </binaryimage>
+    <script><com>lo fu f</com><com>decompile</com><com>print C</com></script>
+    <stringmatch name="empty block multi-range cover - fail case is segfault" min="5" max="1000">.</stringmatch>
+</decompilertest>

@@ -2325,7 +2325,7 @@ Address BlockBasic::getEntryAddr(void) const
     range = cover.getFirstRange();	// return the start of range
   else {
     if (op.empty())
-      return Address();
+      return getStart(); // If no ops, return start of first range
     const Address &addr(op.front()->getAddr());	// Find range of first op
     range = cover.getRange(addr.getSpace(),addr.getOffset());
     if (range == (const Range *)0)
